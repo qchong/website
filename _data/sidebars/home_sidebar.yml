@@ -122,3 +122,7 @@ entries:
       url: /style-guide/
       output: web
 
+  - title: Support
+    url: /#support
+    output: web
+
