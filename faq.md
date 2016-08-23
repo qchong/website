@@ -82,12 +82,11 @@ iOS 8 or newer.
 Mobile hardware: 64-bit iOS devices (for example, iPhone 5S and newer),
 and ARM Android devices.
 
-We support developing Flutter apps with Android and iOS devices, as
+We support developing Flutter apps with Android and iOS devices, as 
 well as with Android emulators and the iOS simulator.
 
-We test on a variety of low-end to high-end phones (excluding tablets)
-but we don't yet have an official device compatibility guarantee.
-We do not offer support for tablets or have tablet-aware layouts.
+We test on a variety of low-end to high-end phones and tablets, but we don't yet
+have an official device compatibility guarantee.
 
 ## What technology is Flutter built with?
 
@@ -162,7 +161,7 @@ Yes, though this feature is a work in progress.
 
 We are building a _message pipe_ between Flutter and the host
 operating system. You can use this message pipe to send and receive
-string data (typically JSON data) between your Flutter code
+string data (typically JSON data) between your Flutter code 
 and Java (on Android) and ObjectiveC (on iOS).
 
 Learn more about

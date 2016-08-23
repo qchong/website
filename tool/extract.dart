@@ -15,7 +15,7 @@ void main(List<String> args) {
 
   // Traverse markdown files in the root.
   int extractCount = 0;
-  Iterable<FileSystemEntity> files = Directory.current
+  Iterable<File> files = Directory.current
       .listSync()
       .where((FileSystemEntity entity) => entity is File && entity.path.endsWith('.md'));
   files.forEach((File file) => extractCount += _processFile(file));
@@ -37,7 +37,7 @@ int _processFile(File file) {
 
   while (index < lines.length) {
     // Look for ```dart sections.
-    if (lines[index].startsWith('```dart') && lastComment?.trim() != 'skip') {
+    if (lines[index].startsWith('```dart') && lastComment != 'skip') {
       int startIndex = index + 1;
       index++;
       while (index < lines.length && !lines[index].startsWith('```')) {
@@ -54,11 +54,7 @@ int _processFile(File file) {
 
       lastComment = lines.sublist(startIndex, index + 1).join('\n');
       lastComment = lastComment.substring(4);
-      if (lines[startIndex].trim() == '<!--') {
-        // remove the first \n
-        lastComment = lastComment.substring(1);
-      }
-      lastComment = lastComment.substring(0, lastComment.length - 3);
+      lastComment = lastComment.substring(0, lastComment.length - 3).trim();
     } else {
       lastComment = null;
     }
@@ -75,24 +71,29 @@ void _extractSnippet(String filename, int snippet, int startLine, List<String> l
   String path = 'example/${filename.replaceAll('-', '_').replaceAll('.', '_')}_'
       '$snippet.dart';
 
+  int adjust = 1;
   String source = '// Extracted from $filename, line $startLine.\n';
 
   if (!hasImport) {
-    source += "import 'package:flutter/material.dart';\n\n";
+    source += "import 'package:flutter/material.dart';\n";
+    adjust++;
   }
 
   if (includeSource != null) {
     source += "$includeSource\n";
+    adjust += includeSource.split('\n').length;
   }
 
-  source += '${lines.join('\n')}\n';
+  source +=
+    '${''.padRight(startLine - adjust, '\n')}'
+    '${lines.join('\n')}\n';
 
   new File(path).writeAsStringSync(source);
   print('  ${lines.length} line snippet ==> $path');
 }
 
 void clean() {
-  Iterable<FileSystemEntity> files = new Directory('example')
+  Iterable<File> files = new Directory('example')
       .listSync()
       .where((FileSystemEntity entity) => entity is File && entity.path.endsWith('.dart'));
   files.forEach((File file) => file.deleteSync());
