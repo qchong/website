@@ -14,6 +14,10 @@ entries:
     external_url: http://docs.flutter.io/flutter/
     output: web
 
+  - title: Flutter Examples
+    external_url: https://github.com/flutter/flutter/tree/master/examples
+    output: web
+    
   - title: New to Flutter
     output: web
     folderitems:
@@ -54,10 +58,6 @@ entries:
       url: /animations/
       output: web
 
-    - title: Text Input
-      url: /text-input/
-      output: web
-
     - title: Layered Design
       external_url: https://www.youtube.com/watch?v=dkyY9WCGMi0
       output: web
@@ -90,8 +90,12 @@ entries:
       url: /platform-services/
       output: web
 
-    - title: Reading and Writing Files
+    - title: Read and Write Files
       url: /reading-writing-files/
+      output: web
+
+    - title: Handle Text Input
+      url: /text-input/
       output: web
 
   - title: Helpful Resources
